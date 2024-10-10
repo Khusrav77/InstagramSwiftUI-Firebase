@@ -25,7 +25,7 @@ struct FeedCellView: View {
                 
                 Text("Joker")
                     .font(.system(size: 14, weight: .semibold))
-            }
+            }.padding([.leading, .bottom], 8)
             
             // post image
             Image(systemName: "house")
@@ -35,12 +35,12 @@ struct FeedCellView: View {
                 .clipped()
             
             // action buttons
-            HStack {
+            HStack(spacing: 16) {
                 Button(action: {}) {
                     Image(systemName: "heart")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 28, height: 28)
+                        .frame(width: 20, height: 20)
                         .font(.system(size: 20))
                         .padding(4)
                 }
@@ -49,7 +49,7 @@ struct FeedCellView: View {
                     Image(systemName: "bubble.right")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 28, height: 28)
+                        .frame(width: 20, height: 20)
                         .font(.system(size: 20))
                         .padding(4)
                 }
@@ -58,25 +58,33 @@ struct FeedCellView: View {
                     Image(systemName: "paperplane")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 28, height: 28)
+                        .frame(width: 20, height: 20)
                         .font(.system(size: 20))
                         .padding(4)
                 }
-            }.tint(.black)
+            }
+            .tint(.black)
+            .padding(.leading, 4)
             
             // caption
+            Text("3 likes")
+                .font(.system(size: 14, weight: .semibold))
+                .padding(.leading, 8)
+                .padding(.bottom, 2)
+            
             HStack {
                 Text("betman")
                     .font(.system(size: 14, weight: .semibold)) +
                 Text(" All man have limitations, but I have none")
                     .font(.system(size: 14))
-                    
             }
+            .padding(.horizontal, 8)
            
             Text("2d")
                 .font(.system(size: 14))
                 .foregroundStyle(.gray)
-                .padding(.top)
+                .padding(.leading, 8)
+                .padding(.top, 2)
         }
     }
 }
