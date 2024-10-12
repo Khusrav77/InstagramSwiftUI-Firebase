@@ -9,7 +9,14 @@ import SwiftUI
 
 struct ProfileView: View {
     var body: some View {
-        Text("ProfileView!")
+        ScrollView {
+            VStack(spacing: 32) {
+                ProfileHeaderView()
+                
+                PostGridView()
+            }
+            .padding(.top)
+        }
     }
 }
 

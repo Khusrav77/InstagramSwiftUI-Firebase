@@ -21,32 +21,9 @@ struct ProfileHeaderView: View {
                 Spacer()
                 
                 HStack(spacing: 16){
-                    VStack(alignment: .center){
-                        Text("2")
-                            .font(.headline)
-                        
-                        Text("Posr")
-                            .font(.subheadline)
-                    }
-                    .frame(width: 80)
-                    
-                    VStack(alignment: .center){
-                        Text("5")
-                            .font(.headline)
-                        
-                        Text("Followers")
-                            .font(.subheadline)
-                    }
-                    .frame(width: 80)
-                    
-                    VStack(alignment: .center){
-                        Text("3")
-                            .font(.headline)
-                        
-                        Text("Following")
-                            .font(.subheadline)
-                    }
-                    .frame(width: 80)
+                    UserStateView(value: 2, title: "Posts")
+                    UserStateView(value: 4, title: "Followers")
+                    UserStateView(value: 6, title: "Following")
                 }
                 .padding(.trailing, 32)
             }
@@ -62,18 +39,7 @@ struct ProfileHeaderView: View {
             
             HStack{
                 Spacer()
-                Button {
-                    
-                } label: {
-                    Text("Edit Profile")
-                        .font(.headline)
-                        .foregroundStyle(.black)
-                        .frame(width: 360, height: 32)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 3)
-                                .stroke(Color.gray, lineWidth: 1)
-                            )
-                }
+                ProfileActionButtonView()
                 Spacer()
             }
             .padding(.top)
