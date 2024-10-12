@@ -84,7 +84,7 @@ struct FeedCellView: View {
                 .font(.system(size: 14))
                 .foregroundStyle(.gray)
                 .padding(.leading, 8)
-                .padding(.top, 2)
+                .padding(.top, -2)
         }
     }
 }
