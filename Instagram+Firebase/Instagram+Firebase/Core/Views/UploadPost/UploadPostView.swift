@@ -9,16 +9,17 @@ import SwiftUI
 
 struct UploadPostView: View {
     // MARK: - Properties
-    @State private var selectedImage: UIImage?
+    @State var selectedImage: UIImage?
     @State var postImage: Image?
     @State var capionsText: String = ""
+    @State var imagePickerPresented: Bool = false
     
     // MARK: - Body
     var body: some View {
         VStack {
             if postImage == nil {
                 Button {
-                    
+                    imagePickerPresented.toggle()
                 }label: {
                     Image("plus_photo")
                         .resizable()
@@ -28,6 +29,8 @@ struct UploadPostView: View {
                         .padding(.top, 56)
                         .clipped()
                         .foregroundStyle(.black)
+                }.sheet(isPresented: $imagePickerPresented, onDismiss: loadImage) {
+                    ImagePickerView(image: $selectedImage)
                 }
             } else {
                 HStack(alignment: .top) {
@@ -57,6 +60,13 @@ struct UploadPostView: View {
             }
             Spacer()
         }
+    }
+}
+
+extension UploadPostView {
+    func loadImage() {
+        guard let selectedImage = selectedImage else { return }
+        postImage = Image(uiImage: selectedImage)
     }
 }
 
