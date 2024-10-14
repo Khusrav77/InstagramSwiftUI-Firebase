@@ -13,6 +13,7 @@ struct ImagePickerView: UIViewControllerRepresentable {
     
     func makeUIViewController(context: Context) -> UIImagePickerController {
        let picker = UIImagePickerController()
+        picker.delegate = context.coordinator
         return picker
     }
     
