@@ -10,7 +10,7 @@ import Firebase
 
 
 @main
-struct Instagram_FirebaseApp: App {
+struct InstagramSwiftUIFirebase: App {
     
     init () {
         FirebaseApp.configure()

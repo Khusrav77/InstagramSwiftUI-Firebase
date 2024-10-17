@@ -68,7 +68,7 @@ struct RegistrationView: View {
                 }
                 
                 Button {
-                    vm.register(with: email, password: password)
+                    vm.register(with: email, password: password, username: userName, fullName: fullName, image: selectedImage)
                 } label: {
                     Text("Sign Up")
                         .foregroundStyle(.white)
