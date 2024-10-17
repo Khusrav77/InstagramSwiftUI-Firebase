@@ -53,7 +53,7 @@ struct LoginView: View {
                     }
                     
                     Button {
-                        vm.logIn()
+                        vm.logIn(with: email, password: password)
                     } label: {
                         Text("Sign In")
                             .foregroundStyle(.white)

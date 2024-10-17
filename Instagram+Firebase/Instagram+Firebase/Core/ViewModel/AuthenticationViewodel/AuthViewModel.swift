@@ -17,8 +17,16 @@ class AuthViewModel: ObservableObject {
         userSession = Auth.auth().currentUser
     }
     
-    func logIn() {
-        print("login")
+    func logIn(with email: String, password: String) {
+        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+            if let error = error {
+                print("DEBUG: Login failed: \(error.localizedDescription)")
+                return
+            }
+            guard let user = result?.user else { return }
+            self.userSession = user
+        }
+        
     }
     
     func logOut() {
@@ -42,6 +50,7 @@ class AuthViewModel: ObservableObject {
                     print("Successfully registered user...")
                     
                     let data: [String: Any] = [
+                        "email": email,
                         "username": username,
                         "fullName": fullName,
                         "profileImageUrl": imageUrl,
