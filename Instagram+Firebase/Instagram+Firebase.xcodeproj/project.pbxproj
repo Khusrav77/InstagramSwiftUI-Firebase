@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A462AE722CBFDBA90032C527 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A462AE712CBFDBA90032C527 /* FirebaseAuth */; };
-		A462AE742CBFDBA90032C527 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = A462AE732CBFDBA90032C527 /* FirebaseCore */; };
 		A462AE762CBFDBA90032C527 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = A462AE752CBFDBA90032C527 /* FirebaseDatabase */; };
 		A462AE782CBFDBA90032C527 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = A462AE772CBFDBA90032C527 /* FirebaseFirestore */; };
 		A462AE7A2CBFDBA90032C527 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = A462AE792CBFDBA90032C527 /* FirebaseStorage */; };
@@ -37,7 +36,6 @@
 				A462AE762CBFDBA90032C527 /* FirebaseDatabase in Frameworks */,
 				A462AE782CBFDBA90032C527 /* FirebaseFirestore in Frameworks */,
 				A462AE7F2CBFDC760032C527 /* FirebaseMessaging in Frameworks */,
-				A462AE742CBFDBA90032C527 /* FirebaseCore in Frameworks */,
 				A462AE822CBFDDD40032C527 /* Kingfisher in Frameworks */,
 				A462AE7D2CBFDC670032C527 /* FirebaseFunctions in Frameworks */,
 				A462AE7A2CBFDBA90032C527 /* FirebaseStorage in Frameworks */,
@@ -93,7 +91,6 @@
 			name = "Instagram+Firebase";
 			packageProductDependencies = (
 				A462AE712CBFDBA90032C527 /* FirebaseAuth */,
-				A462AE732CBFDBA90032C527 /* FirebaseCore */,
 				A462AE752CBFDBA90032C527 /* FirebaseDatabase */,
 				A462AE772CBFDBA90032C527 /* FirebaseFirestore */,
 				A462AE792CBFDBA90032C527 /* FirebaseStorage */,
@@ -396,11 +393,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A462AE702CBFDBA80032C527 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
-		};
-		A462AE732CBFDBA90032C527 /* FirebaseCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A462AE702CBFDBA80032C527 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseCore;
 		};
 		A462AE752CBFDBA90032C527 /* FirebaseDatabase */ = {
 			isa = XCSwiftPackageProductDependency;

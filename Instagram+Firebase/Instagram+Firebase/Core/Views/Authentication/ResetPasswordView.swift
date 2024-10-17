@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ResetPasswordView: View {
+    @EnvironmentObject var vm: AuthViewModel
     var body: some View {
         Text("Reset Password View")
     }

@@ -7,8 +7,9 @@
 
 import SwiftUI
 
-struct Loginview: View {
+struct LoginView: View {
     // MARK: - Properties
+    @EnvironmentObject var vm: AuthViewModel
     @State private var email: String = ""
     @State private var password: String = ""
     
@@ -23,7 +24,6 @@ struct Loginview: View {
                 .ignoresSafeArea()
                 
                 VStack {
-                    
                     Image("instagram_logo")
                         .resizable()
                         .scaledToFit()
@@ -53,7 +53,7 @@ struct Loginview: View {
                     }
                     
                     Button {
-                        
+                        vm.logIn()
                     } label: {
                         Text("Sign In")
                             .foregroundStyle(.white)
@@ -83,5 +83,6 @@ struct Loginview: View {
 }
 
 #Preview {
-    Loginview()
+    LoginView()
+        .environmentObject(AuthViewModel())
 }

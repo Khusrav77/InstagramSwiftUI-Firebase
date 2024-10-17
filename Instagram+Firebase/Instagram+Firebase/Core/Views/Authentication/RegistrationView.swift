@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RegistrationView: View {
     // MARK: - Properties
+    @EnvironmentObject var vm: AuthViewModel
     @State private var email: String = ""
     @State private var userName: String = ""
     @State private var fullName: String = ""
@@ -67,7 +68,7 @@ struct RegistrationView: View {
                 }
                 
                 Button {
-                    
+                    vm.register(with: email, password: password)
                 } label: {
                     Text("Sign Up")
                         .foregroundStyle(.white)
@@ -108,4 +109,5 @@ extension RegistrationView {
 
 #Preview {
     RegistrationView()
+        .environmentObject(AuthViewModel())
 }

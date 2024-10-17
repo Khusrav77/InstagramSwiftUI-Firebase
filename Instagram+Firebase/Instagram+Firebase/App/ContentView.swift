@@ -8,11 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var vm: AuthViewModel
+    
     var body: some View {
-        MainTabView()
+        Group {
+            if vm.userSession == nil {
+                LoginView()
+            } else {
+                MainTabView()
+            }
+        }
     }
 }
 
 #Preview {
     ContentView()
+        .environmentObject(AuthViewModel())
 }

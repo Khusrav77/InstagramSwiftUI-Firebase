@@ -28,12 +28,12 @@ struct CustomSecureField: View {
                 SecureField("", text: $text)
                     
             }
-                
+            .frame(maxWidth: .infinity, maxHeight: 50)
+            .foregroundStyle(.white.opacity(0.8))
+            .background(Color.white.opacity(0.15))
+            .clipShape(RoundedRectangle(cornerRadius: 10))
         }
-        .foregroundStyle(.white.opacity(0.8))
-        .frame(width: .infinity, height: 50)
-        .background(Color.white.opacity(0.15))
-        .clipShape(RoundedRectangle(cornerRadius: 10))
+        
     }
 }
 
