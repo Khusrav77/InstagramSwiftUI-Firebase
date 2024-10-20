@@ -7,12 +7,13 @@
 
 import FirebaseFirestore
 
-struct User: Decodable {
+struct User: Identifiable, Decodable {
     @DocumentID var id: String?
     let userName: String
     let fullName: String
     let email: String
-    let profileImageUrl: String?
+    let profileImageUrl: String
     var isFollowed: Bool? = false
     var isCurrentUser: Bool { return AuthViewModel.shared.userSession?.uid == id}
+   
 }

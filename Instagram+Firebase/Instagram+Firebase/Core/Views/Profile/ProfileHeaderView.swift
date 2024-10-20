@@ -14,7 +14,7 @@ struct ProfileHeaderView: View {
     var body: some View {
         VStack(alignment: .leading){
             HStack{
-                KFImage(URL(string: vm.user.profileImageUrl ?? ""))
+                KFImage(URL(string: vm.user.profileImageUrl))
                     .resizable()
                     .scaledToFill()
                     .frame(width: 80, height: 80)
