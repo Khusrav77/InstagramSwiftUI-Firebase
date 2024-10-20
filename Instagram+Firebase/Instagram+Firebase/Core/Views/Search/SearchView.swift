@@ -10,6 +10,7 @@ import SwiftUI
 struct SearchView: View {
     @State var searchText: String = ""
     @State var inSearchMode: Bool = false
+    @ObservedObject var vm = SearchViewModel()
     var body: some View {
         ScrollView {
             SearchBar(text: $searchText, isEditing: $inSearchMode)
@@ -17,7 +18,7 @@ struct SearchView: View {
             
             ZStack {
                 if inSearchMode {
-                    UserListView()
+                    UserListView(vm: vm, searchText: $searchText)
                 } else {
                     PostGridView()
                 }

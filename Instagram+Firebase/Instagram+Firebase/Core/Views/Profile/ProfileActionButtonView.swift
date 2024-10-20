@@ -9,14 +9,14 @@ import SwiftUI
 
 struct ProfileActionButtonView: View {
     // MARK: - Properties
-    var isCurrentUser: Bool = false
-    var isFollowed: Bool = false
-    var action: () -> Void = { }
+    @ObservedObject var vm: ProfileViewModel
+    var isFollowed: Bool { return vm.user.isFollowed ?? false}
+   
     // MARK: - Body
     var body: some View {
-        if isCurrentUser {
+        if vm.user.isCurrentUser {
             Button {
-               action()
+              
             } label: {
                 Text("Edit Profile")
                     .font(.headline)
@@ -30,7 +30,7 @@ struct ProfileActionButtonView: View {
         } else {
             HStack {
                 Button {
-                    action()
+                    isFollowed ? vm.unfollow() : vm.follow()
                 } label: {
                     Text(isFollowed ? "Following" : "Follow")
                         .font(.headline)
@@ -44,7 +44,7 @@ struct ProfileActionButtonView: View {
                 }.cornerRadius(3)
                 
                 Button {
-                    action()
+                   
                 } label: {
                     Text("Message")
                         .font(.headline)
@@ -60,6 +60,3 @@ struct ProfileActionButtonView: View {
     }
 }
 
-#Preview {
-    ProfileActionButtonView()
-}
