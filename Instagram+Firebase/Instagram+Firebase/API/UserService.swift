@@ -5,9 +5,9 @@
 //  Created by Khusrav Safiev on 10/20/24.
 //
 
-import Firebase
+import FirebaseFirestore
 
-
+typealias FirestorCompletion = ((Error?) -> Void)
 struct UserService {
     
     static func follow(uid: String, completion: ((Error?) -> Void)?) {

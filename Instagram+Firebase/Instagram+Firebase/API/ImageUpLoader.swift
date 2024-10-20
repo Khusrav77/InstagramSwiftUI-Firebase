@@ -8,36 +8,40 @@
 import UIKit
 import FirebaseStorage
 
+enum UploadType {
+    case profile
+    case post
+    
+    var storagePath: StorageReference {
+        let filename = NSUUID().uuidString
+        switch self {
+        case .profile:
+            return Storage.storage().reference(withPath: "/profile_images/\(filename)")
+        case .post:
+            return Storage.storage().reference(withPath: "/posts_images/\(filename)")
+        }
+    }
+}
+
 struct ImageUploader {
-    static func uploadImage(image: UIImage, completion: @escaping (Result<String, Error>) -> Void) {
+    static func uploadImage(image: UIImage, type: UploadType, completion: @escaping (String) -> Void) {
         guard let imageData = image.jpegData(compressionQuality: 0.5) else {
-            completion(.failure(NSError(domain: "ImageConversionError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to convert UIImage to JPEG data."])))
+            print("DEBUG: Unable to convert image to jpeg data")
             return
         }
-        
-        let fileName = NSUUID().uuidString
-        let ref = Storage.storage().reference(withPath: "/profile_images/\(fileName)")
-        
+        let ref = type.storagePath
         ref.putData(imageData, metadata: nil) { _, error in
             if let error = error {
                 print("DEBUG: Error uploading image: \(error.localizedDescription)")
-                completion(.failure(error))
                 return
             }
-            
-            ref.downloadURL { url, error in
-                if let error = error {
-                    print("DEBUG: Error fetching download URL: \(error.localizedDescription)")
-                    completion(.failure(error))
-                    return
-                }
-                
+            print("Successfully uploaded image")
+            ref.downloadURL { url, _ in
                 guard let imageUrl = url?.absoluteString else {
-                    completion(.failure(NSError(domain: "DownloadURLError", code: -2, userInfo: [NSLocalizedDescriptionKey: "Failed to get image URL."])))
+                    print("DEBUG: Download URL is nil")
                     return
                 }
-                
-                completion(.success(imageUrl))
+                completion(imageUrl)
             }
         }
     }
