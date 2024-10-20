@@ -20,8 +20,8 @@ struct LoginView: View {
                 LinearGradient(
                     colors: [.purple, .blue],
                     startPoint: .top,
-                    endPoint: .bottom)
-                .ignoresSafeArea()
+                    endPoint:.bottom)
+                    .ignoresSafeArea()
                 
                 VStack {
                     Image("instagram_logo")

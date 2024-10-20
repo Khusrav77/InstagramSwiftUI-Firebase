@@ -6,15 +6,16 @@
 //
 
 import SwiftUI
-import Firebase
 import FirebaseAuth
 
 class AuthViewModel: ObservableObject {
     static let shared = AuthViewModel()
     @Published var userSession: FirebaseAuth.User?
+    @Published var currentUser: User?
     
     init() {
         userSession = Auth.auth().currentUser
+        fetchUser()
     }
     
     func logIn(with email: String, password: String) {
@@ -25,6 +26,7 @@ class AuthViewModel: ObservableObject {
             }
             guard let user = result?.user else { return }
             self.userSession = user
+            self.fetchUser()
         }
         
     }
@@ -38,35 +40,26 @@ class AuthViewModel: ObservableObject {
         guard let image = image else { return }
         
         ImageUploader.uploadImage(image: image) { imageUrl in
-            switch imageUrl {
-            case .success(let imageUrl):
-                Auth.auth().createUser(withEmail: email, password: password) { result, error in
-                    if let error = error{
-                        print("Error creating user: \(error.localizedDescription)")
-                        return
-                    }
-                    guard let user = result?.user else { return }
-                    self.userSession = user
-                    print("Successfully registered user...")
-                    
-                    let data: [String: Any] = [
-                        "email": email,
-                        "username": username,
-                        "fullName": fullName,
-                        "profileImageUrl": imageUrl,
-                        "uid": user.uid]
-                    
-                    Firestore.firestore().collection("users").document(user.uid).setData(data) { error in
-                        if let error = error {
-                            print("Error saving user data: \(error.localizedDescription)")
-                        } else {
-                            print("Successfully saved user data...")
-                            self.userSession = user
-                        }
-                    }
+            Auth.auth().createUser(withEmail: email, password: password) { result, error in
+                if let error = error{
+                    print("DEBUG: Error creating user: \(error.localizedDescription)")
+                    return
                 }
-            case .failure(let error):
-                print("Error uploading image: \(error.localizedDescription)")
+                guard let user = result?.user else { return }
+                print("Successfully registered user...")
+                
+                let data = [
+                    "email": email,
+                    "username": username,
+                    "fullName": fullName,
+                    "profileImageUrl": imageUrl,
+                    "uid": user.uid]
+                
+                COLLECTION_USERS.document(user.uid).setData(data) { _ in
+                    print("Successfully saved user data...")
+                    self.userSession = user
+                    self.fetchUser()
+                }
             }
         }
     }
@@ -76,6 +69,16 @@ class AuthViewModel: ObservableObject {
     }
     
     func fetchUser() {
+        guard let uid = userSession?.uid else { return }
+        COLLECTION_USERS.document(uid).getDocument { (snapshot, error) in
+            if let error {
+                print("DEBUG: Error fetching user: \(error.localizedDescription)")
+                return
+            }
+            guard let user = try? snapshot?.data(as: User.self) else { return }
+            self.currentUser = user
+            
+        }
         
     }
 }

@@ -38,7 +38,6 @@ struct ImageUploader {
                 }
                 
                 completion(.success(imageUrl))
-                
             }
         }
     }
