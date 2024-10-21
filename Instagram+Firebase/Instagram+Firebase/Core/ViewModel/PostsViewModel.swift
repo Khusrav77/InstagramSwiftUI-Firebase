@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-class PostsViewModel: ObservableObject {
+final class PostsViewModel: ObservableObject {
     @Published var posts: [Post] = []
     
     init() {
         fetchPosts()
     }
     
-    func fetchPosts() {
+    private func fetchPosts() {
         COLLECTION_POST.getDocuments { snapshot, _ in
             guard let documents = snapshot?.documents else { return }
             self.posts = documents.compactMap({try? $0.data(as: Post.self)})

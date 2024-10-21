@@ -20,7 +20,7 @@ struct SearchView: View {
                 if inSearchMode {
                     UserListView(vm: vm, searchText: $searchText)
                 } else {
-                    PostGridView()
+                    PostGridView(config: .explore)
                 }
             }
         }
