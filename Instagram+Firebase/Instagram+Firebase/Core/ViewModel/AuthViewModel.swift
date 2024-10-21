@@ -58,6 +58,11 @@ final class AuthViewModel: ObservableObject {
         }
     }
     
+    func logOut() {
+        self.userSession = nil
+        try? Auth.auth().signOut()
+    }
+    
     func resetPassword() {
         
     }
@@ -72,11 +77,6 @@ final class AuthViewModel: ObservableObject {
             guard let user = try? snapshot?.data(as: User.self) else { return }
             self.currentUser = user
         }
-    }
-    
-    private func logOut() {
-        self.userSession = nil
-        try? Auth.auth().signOut()
     }
     
 }

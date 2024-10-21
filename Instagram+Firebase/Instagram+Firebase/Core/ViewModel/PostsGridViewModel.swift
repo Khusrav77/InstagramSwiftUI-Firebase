@@ -30,7 +30,7 @@ final class PostsGridViewModel: ObservableObject {
         }
         
         func fetchUserPosts(uid: String) {
-            COLLECTION_POST.whereField("ownerUid", isEqualTo: uid)
+            COLLECTION_POSTS.whereField("ownerUid", isEqualTo: uid)
                 .getDocuments { snapshot, _ in
                     guard let documents = snapshot?.documents else { return }
                     self.posts = documents.compactMap({try? $0.data(as: Post.self)})
@@ -38,7 +38,7 @@ final class PostsGridViewModel: ObservableObject {
         }
         
         func fetchExplorePosts() {
-            COLLECTION_POST.getDocuments { snapshot, _ in
+            COLLECTION_POSTS.getDocuments { snapshot, _ in
                 guard let documents = snapshot?.documents else { return }
                 self.posts = documents.compactMap({try? $0.data(as: Post.self)})
             }

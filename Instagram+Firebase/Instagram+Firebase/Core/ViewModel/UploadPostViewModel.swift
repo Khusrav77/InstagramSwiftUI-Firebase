@@ -23,7 +23,7 @@ final class UploadPostViewModel: ObservableObject {
                         "ownerImage": user.profileImageUrl,
                         "ownerUserName": user.userName] as [String: Any]
             
-            COLLECTION_POST.addDocument(data: data, completion: completion)
+            COLLECTION_POSTS.addDocument(data: data, completion: completion)
         }
     }
 }
