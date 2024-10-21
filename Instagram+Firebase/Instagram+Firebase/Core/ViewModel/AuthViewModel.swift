@@ -8,7 +8,7 @@
 import SwiftUI
 import FirebaseAuth
 
-class AuthViewModel: ObservableObject {
+final class AuthViewModel: ObservableObject {
     static let shared = AuthViewModel()
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
@@ -28,18 +28,12 @@ class AuthViewModel: ObservableObject {
             self.userSession = user
             self.fetchUser()
         }
-        
-    }
-    
-    func logOut() {
-        self.userSession = nil
-        try? Auth.auth().signOut()
     }
     
     func register(with email: String, password: String, username: String, fullName: String, image: UIImage?) {
         guard let image = image else { return }
         
-        ImageUploader.uploadImage(image: image) { imageUrl in
+        ImageUploader.uploadImage(image: image, type: .profile) { imageUrl in
             Auth.auth().createUser(withEmail: email, password: password) { result, error in
                 if let error = error{
                     print("DEBUG: Error creating user: \(error.localizedDescription)")
@@ -64,11 +58,16 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    func logOut() {
+        self.userSession = nil
+        try? Auth.auth().signOut()
+    }
+    
     func resetPassword() {
         
     }
     
-    func fetchUser() {
+    private func fetchUser() {
         guard let uid = userSession?.uid else { return }
         COLLECTION_USERS.document(uid).getDocument { (snapshot, error) in
             if let error {
@@ -77,8 +76,7 @@ class AuthViewModel: ObservableObject {
             }
             guard let user = try? snapshot?.data(as: User.self) else { return }
             self.currentUser = user
-            
         }
-        
     }
+    
 }

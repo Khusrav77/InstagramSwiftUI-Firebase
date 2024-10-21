@@ -11,8 +11,10 @@ struct UploadPostView: View {
     // MARK: - Properties
     @State private var selectedImage: UIImage?
     @State var postImage: Image?
-    @State var capionsText: String = ""
+    @State var captionsText: String = ""
     @State var imagePickerPresented: Bool = false
+    @Binding var tabIndex: Int
+    @ObservedObject var vm = UploadPostViewModel()
     
     // MARK: - Body
     var body: some View {
@@ -40,23 +42,45 @@ struct UploadPostView: View {
                         .frame(width: 96 , height: 96)
                         .clipped()
                     
-                    TextField("Enter your caption", text: $capionsText)
-                        .padding()
-                        .background(Color.white.opacity(0.1))
-                        .cornerRadius(10)
+                    TextArea(text: $captionsText, placeholder: "Enter your caption")
+                        .frame(height: 200 )
+                    
+                    
                 }.padding()
                 
-                Button {
+                HStack(spacing: 16) {
+                    Button {
+                        captionsText = ""
+                        postImage = nil
+                        
+                    } label: {
+                        Text("Cancle")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(width: 172, height: 50)
+                            .background(Color.red)
+                            .cornerRadius(10)
+                    }
                     
-                } label: {
-                    Text("Share")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .frame(width: 360, height: 50)
-                        .background(Color.blue)
-                        .cornerRadius(10)
+                    Button {
+                        if let image = selectedImage {
+                            vm.uploadPost(caption: captionsText , image: image) { _ in
+                                captionsText = ""
+                                postImage = nil
+                                tabIndex = 0
+                            }
+                        }
+                        
+                    } label: {
+                        Text("Share")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(width: 172, height: 50)
+                            .background(Color.blue)
+                            .cornerRadius(10)
+                    }
                 }
-
+                .padding()
             }
             Spacer()
         }
@@ -71,5 +95,5 @@ extension UploadPostView {
 }
 
 #Preview {
-    UploadPostView()
+    UploadPostView(tabIndex: .constant(0))
 }

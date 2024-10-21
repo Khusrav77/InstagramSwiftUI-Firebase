@@ -9,14 +9,16 @@ import SwiftUI
 import FirebaseFirestore
 
 
-class SearchViewModel: ObservableObject {
+final class SearchViewModel: ObservableObject {
+    // MARK: - Properties
     @Published var users: [User] = []
     
     init() {
-        searchUsers()
+        fetchUsers()
     }
     
-    func searchUsers() {
+    
+    private func fetchUsers() {
         COLLECTION_USERS.getDocuments { snapshot, error in
             guard let documents = snapshot?.documents else {
                 print("DEBUG: No documents in snapshot.")
