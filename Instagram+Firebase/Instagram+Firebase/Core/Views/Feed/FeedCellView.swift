@@ -6,29 +6,30 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct FeedCellView: View {
     // MARK: - Properties
-    
+    let post: Post
     
     // MARK: - Body
     var body: some View {
         VStack(alignment: .leading) {
             // user info
             HStack {
-                Image(systemName: "house")
+                KFImage(URL(string: post.ownerImageUrl))
                     .resizable()
                     .scaledToFit()
                     .frame(width: 36, height: 36)
                     .clipped()
                     .clipShape(RoundedRectangle(cornerRadius: 18))
                 
-                Text("Joker")
+                Text(post.ownerName)
                     .font(.system(size: 14, weight: .semibold))
             }.padding([.leading, .bottom], 8)
             
             // post image
-            Image(systemName: "house")
+            KFImage(URL(string: post.imageUrl))
                 .resizable()
                 .scaledToFit()
                 .frame(height: 440)
@@ -67,15 +68,15 @@ struct FeedCellView: View {
             .padding(.leading, 4)
             
             // caption
-            Text("3 likes")
+            Text("\(post.likes) likes")
                 .font(.system(size: 14, weight: .semibold))
                 .padding(.leading, 8)
                 .padding(.bottom, 2)
             
             HStack {
-                Text("betman")
+                Text(post.ownerName)
                     .font(.system(size: 14, weight: .semibold)) +
-                Text(" All man have limitations, but I have none")
+                Text(" \(post.caption)")
                     .font(.system(size: 14))
             }
             .padding(.horizontal, 8)
@@ -89,6 +90,3 @@ struct FeedCellView: View {
     }
 }
 
-#Preview {
-    FeedCellView()
-}
