@@ -53,7 +53,7 @@ struct FeedCellView: View {
                         .padding(4)
                 }
                 
-                Button(action: {}) {
+                NavigationLink(destination: CommentsView()) {
                     Image(systemName: "bubble.right")
                         .resizable()
                         .scaledToFit()
