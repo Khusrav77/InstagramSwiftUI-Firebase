@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CustomInputView: View {
-    @Binding var inputText: String
+   @Binding var text: String
     var action: () -> Void
     var body: some View {
         VStack {
@@ -18,7 +18,7 @@ struct CustomInputView: View {
                 .padding(.bottom, 8)
             
             HStack{
-                TextField("Message", text: $inputText)
+                TextField("Message", text: $text)
                     .textFieldStyle(PlainTextFieldStyle())
                     .frame(height: 30)
                 
@@ -37,5 +37,5 @@ struct CustomInputView: View {
 }
 
 #Preview {
-    CustomInputView(inputText: .constant(""), action: {})
+    CustomInputView(text: .constant(""), action: {})
 }

@@ -15,13 +15,14 @@ final class UploadPostViewModel: ObservableObject {
         guard let user = AuthViewModel.shared.currentUser else { return }
         
         ImageUploader.uploadImage(image: image, type: .post) { imageUrl in
-            let data = ["caption": caption,
-                        "imageUrl": imageUrl,
-                        "ownerUid": user.id ?? "",
-                        "likes": 0,
-                        "timestamp": Timestamp(date: Date()),
-                        "ownerImage": user.profileImageUrl,
-                        "ownerUserName": user.userName] as [String: Any]
+            let data: [String: Any] = [
+                                        "caption": caption,
+                                        "imageUrl": imageUrl,
+                                        "ownerUid": user.id ?? "",
+                                        "likes": 0,
+                                        "timestamp": Timestamp(date: Date()),
+                                        "ownerImage": user.profileImageUrl,
+                                        "ownerUserName": user.userName]
             
             COLLECTION_POSTS.addDocument(data: data, completion: completion)
         }
