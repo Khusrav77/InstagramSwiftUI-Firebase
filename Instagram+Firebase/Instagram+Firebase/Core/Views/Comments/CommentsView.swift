@@ -8,26 +8,32 @@
 import SwiftUI
 
 struct CommentsView: View {
+    // MARK: - Properties
     @State var comment: String = ""
+    @ObservedObject var vm: CommentsViewModel
+    
+    init(post: Post) {
+        self.vm = CommentsViewModel(post: post)
+    }
+    
+    // MARK: - Body
     var body: some View {
         VStack {
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 24) {
-                    ForEach(0..<10) { _ in
-                        CommentsCell()
+                    ForEach(vm.comments) { comment  in
+                        CommentsCell(comment: comment)
                     }
                 }
             }
             .padding(.top, 24)
             
             CustomInputView(inputText: $comment) {
-                //addComment()
+                vm.uploadComment(for: comment)
+                comment = ""
             }
         }
         
     }
 }
 
-#Preview {
-    CommentsView()
-}
