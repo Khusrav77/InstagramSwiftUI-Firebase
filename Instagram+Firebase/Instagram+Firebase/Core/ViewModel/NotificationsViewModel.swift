@@ -12,7 +12,7 @@ import Firebase
     @Published var notifications: [Notification] = []
     
     init() {
-        
+        fetchNotifications()
     }
     
      static func uploadNotification(toUid uid: String, type: NotificationType, post: Post? = nil) {
@@ -35,8 +35,14 @@ import Firebase
         
     }
     
-    func fetchNotification(_ notification: Notification) {
+     private func fetchNotifications() {
+        guard let uid = AuthViewModel.shared.userSession?.uid else { return }
+       let query = COLLECTION_NOTIFICATIONS.document(uid).collection("user-notifications").order(by: "timeStamp", descending: true)
         
+        query.getDocuments { snapshot, _ in
+            guard let documents = snapshot?.documents else { return }
+            self.notifications = documents.compactMap({ try? $0.data(as: Notification.self)})
+        }
     }
 }
  

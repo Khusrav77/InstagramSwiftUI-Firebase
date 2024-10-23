@@ -41,7 +41,6 @@ final class CommentsViewModel: ObservableObject {
                 }
                     
             }
-        }
     
     private func fetchComments() {
         guard let postId = post.id else { return }

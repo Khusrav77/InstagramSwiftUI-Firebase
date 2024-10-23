@@ -6,46 +6,53 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct NotificationsCell: View {
     // MARK: - Properties
-    private var showPostImage: Bool = false
+    @ObservedObject var vm: NotifivcationsCellViewModel
+    var isFollowed: Bool { return vm.notification.isFollowed ?? false}
+    
+    init(ncvm: NotifivcationsCellViewModel) {
+        self.vm = ncvm
+    }
     
     // MARK: - Body
     var body: some View {
         HStack {
-            Image(systemName: "person")
+            KFImage(URL(string: vm.notification.profileImageUrl))
                 .resizable()
                 .scaledToFill()
                 .frame(width: 40, height:  40)
                 .clipShape(Circle())
             
-            Text("button")
+            Text(vm.notification.userName)
                 .font(.headline) +
             
-            Text(" liked one of your post!")
+            Text(" \(vm.notification.type.notifivationMessage)")
                 .font(.subheadline)
             Spacer()
             
-            if showPostImage {
+            if vm.notification.type != .follow {
                 Image(systemName: "person")
                     .resizable()
                     .scaledToFill()
                     .frame(width: 40, height:  40)
-                    
+                
             } else {
                 Button {
-                    
+                    isFollowed ? vm.unfollow() : vm.follow()
                 } label: {
-                    Text("Follow")
-                        .font(.subheadline)
-                        .foregroundStyle(.white)
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 8)
-                        .background(Color.blue)
-                        .clipShape(Capsule())
+                    Text(isFollowed ? "Following" : "Follow")
+                        .font(.headline)
+                        .foregroundStyle(isFollowed ? .black : .white)
+                        .frame(width: 172, height: 32)
+                        .background(isFollowed ? Color.white : Color.blue)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 3)
+                                .stroke(Color.gray, lineWidth: isFollowed ? 1 : 0))
                 }
-
+                
             }
             
         }
@@ -53,6 +60,3 @@ struct NotificationsCell: View {
     }
 }
 
-#Preview {
-    NotificationsCell()
-}

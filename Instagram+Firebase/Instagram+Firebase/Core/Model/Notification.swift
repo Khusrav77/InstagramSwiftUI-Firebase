@@ -14,8 +14,9 @@ struct Notification: Identifiable, Decodable {
     let userName: String
     let profileImageUrl: String
     let createdAt: Timestamp
-    let type: Int
+    let type: NotificationType
     let uid: String
+    var isFollowed: Bool? = false
 }
 
 enum NotificationType: Int, Codable {
