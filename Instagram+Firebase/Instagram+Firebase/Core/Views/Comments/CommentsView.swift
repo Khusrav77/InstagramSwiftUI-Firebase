@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CommentsView: View {
     // MARK: - Properties
-    @State var comment: String = ""
     @ObservedObject var vm: CommentsViewModel
     
     init(post: Post) {
@@ -28,12 +27,10 @@ struct CommentsView: View {
             }
             .padding(.top, 24)
             
-            CustomInputView(inputText: $comment) {
-                vm.uploadComment(for: comment)
-                comment = ""
+            CustomInputView(text: $vm.inputText) {
+            
             }
         }
-        
     }
 }
 
