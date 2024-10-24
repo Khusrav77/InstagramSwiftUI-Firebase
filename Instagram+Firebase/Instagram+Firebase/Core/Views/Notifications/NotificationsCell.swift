@@ -27,14 +27,12 @@ struct NotificationsCell: View {
                         .scaledToFill()
                         .frame(width: 40, height:  40)
                         .clipShape(Circle())
+                    Text(vm.notification.userName).font(.headline) +
+                        Text(" \(vm.notification.type.notifivationMessage)").font(.subheadline) +
+                        Text(" \(vm.timeString)").font(.subheadline).foregroundColor(.gray)
+                    
                }
             }
-            
-            Text(vm.notification.userName)
-                .font(.headline) +
-            
-            Text(" \(vm.notification.type.notifivationMessage)")
-                .font(.subheadline)
             Spacer()
             
             if vm.notification.type != .follow {
