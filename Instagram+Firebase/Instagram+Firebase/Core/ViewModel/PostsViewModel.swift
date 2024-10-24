@@ -15,7 +15,7 @@ final class PostsViewModel: ObservableObject {
     }
     
     private func fetchPosts() {
-        COLLECTION_POSTS.getDocuments { snapshot, _ in
+        COLLECTION_POSTS.order(by: "timestamp", descending: true).getDocuments { snapshot, _ in
             guard let documents = snapshot?.documents else { return }
             self.posts = documents.compactMap({try? $0.data(as: Post.self)})
         }
