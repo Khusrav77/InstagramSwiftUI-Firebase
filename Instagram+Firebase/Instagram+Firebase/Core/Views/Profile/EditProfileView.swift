@@ -9,12 +9,16 @@ import SwiftUI
 
 struct EditProfileView: View {
     @Environment(\.dismiss) var dismiss
-    @State private var text: String = ""
+    @Binding var user: User
+    @State private var bioText: String
     @ObservedObject var vm: EditProfileViewModel
     
-    init(vm: EditProfileViewModel) {
-        self.vm = vm
+    init(user: Binding <User>) {
+        self._user = user
+        self.vm = EditProfileViewModel(user: self._user.wrappedValue)
+        self._bioText = State(initialValue: _user.wrappedValue.bio ?? "")
     }
+    
     var body: some View {
         VStack{
             HStack{
@@ -27,21 +31,24 @@ struct EditProfileView: View {
                 Spacer()
                
                 Button {
-                    vm.saveData(text)
+                    vm.saveData(bioText)
                 } label: {
                     Text("Done")
                 }
                 
             }.padding()
             
-            TextArea(text: $text, placeholder: "add your bio here")
+            TextArea(text: $bioText, placeholder: "add your bio here")
                 .frame(width: 370, height: 200 )
                 .padding()
             
             Spacer()
         }
-        .onReceive(vm.$uploadComplete, perform: { _ in
-            self.dismiss()
+        .onReceive(vm.$uploadComplete, perform: { completed in
+            if completed {
+                self.dismiss()
+                self.user.bio = vm.user.bio
+            }
         })
     }
 }

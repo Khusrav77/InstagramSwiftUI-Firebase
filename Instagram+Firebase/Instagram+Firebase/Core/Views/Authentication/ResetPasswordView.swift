@@ -64,8 +64,10 @@ struct ResetPasswordView: View {
                 
             }.padding(.top)
         }
-        .onReceive(vm.$didSendRessetPassword, perform: { _ in
-            self.dismiss()
+        .onReceive(vm.$didSendRessetPassword, perform: { completed in
+           if completed {
+               self.dismiss()
+            }
         })
     }
 }
