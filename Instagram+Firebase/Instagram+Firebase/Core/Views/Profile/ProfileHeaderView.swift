@@ -24,9 +24,9 @@ struct ProfileHeaderView: View {
                 Spacer()
                 
                 HStack(spacing: 16){
-                    UserStateView(value: 2, title: "Posts")
-                    UserStateView(value: 4, title: "Followers")
-                    UserStateView(value: 6, title: "Following")
+                    UserStateView(value: vm.user.stats?.posts ?? 0, title: "Posts")
+                    UserStateView(value: vm.user.stats?.followers ?? 0, title: "Followers")
+                    UserStateView(value: vm.user.stats?.following ?? 0, title: "Following")
                 }
                 .padding(.trailing, 32)
             }
@@ -35,10 +35,12 @@ struct ProfileHeaderView: View {
                 .font(.headline)
                 .padding([.leading, .top] )
             
-            Text("This is a profile page")
-                .font(.subheadline)
-                .padding(.leading)
-                .padding(.top, 1)
+            if let bio = vm.user.bio {
+                Text(bio)
+                    .font(.subheadline)
+                    .padding(.leading)
+                    .padding(.top, 1)
+            }
             
             HStack{
                 Spacer()

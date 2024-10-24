@@ -24,7 +24,7 @@ struct CommentsCell: View {
                     
             Spacer()
                     
-            Text("2m")
+            Text(" \(comment.timesTampString ?? "")")
                 .font(.caption)
                 .foregroundStyle(.gray)
         }

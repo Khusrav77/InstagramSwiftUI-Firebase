@@ -13,7 +13,14 @@ struct User: Identifiable, Decodable {
     let fullName: String
     let email: String
     let profileImageUrl: String
+    var bio: String?
+    var stats: UserStats?
     var isFollowed: Bool? = false
     var isCurrentUser: Bool { return AuthViewModel.shared.userSession?.uid == id}
-   
+}
+
+struct UserStats: Decodable {
+    var followers: Int
+    var following: Int
+    var posts: Int
 }

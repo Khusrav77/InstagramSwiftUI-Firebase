@@ -11,12 +11,12 @@ struct ProfileActionButtonView: View {
     // MARK: - Properties
     @ObservedObject var vm: ProfileViewModel
     var isFollowed: Bool { return vm.user.isFollowed ?? false}
-   
+    @State var showEditProfile: Bool = false
     // MARK: - Body
     var body: some View {
         if vm.user.isCurrentUser {
             Button {
-              
+                showEditProfile = true
             } label: {
                 Text("Edit Profile")
                     .font(.headline)
@@ -26,6 +26,8 @@ struct ProfileActionButtonView: View {
                         RoundedRectangle(cornerRadius: 3)
                             .stroke(Color.gray, lineWidth: 1)
                         )
+            }.sheet(isPresented: $showEditProfile) {
+                EditProfileView(user: $vm.user)
             }
         } else {
             HStack {

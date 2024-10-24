@@ -16,6 +16,6 @@ struct Post: Codable, Identifiable {
     var likes: Int
     let imageUrl: String
     let ownerImageUrl: String
-    let createdAt: Timestamp
+    let timestamp: Timestamp
     var didLike: Bool? = false
 }
