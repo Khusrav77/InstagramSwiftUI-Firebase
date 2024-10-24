@@ -20,11 +20,15 @@ struct NotificationsCell: View {
     // MARK: - Body
     var body: some View {
         HStack {
-            KFImage(URL(string: vm.notification.profileImageUrl))
-                .resizable()
-                .scaledToFill()
-                .frame(width: 40, height:  40)
-                .clipShape(Circle())
+           if let user = vm.notification.user {
+                NavigationLink(destination: ProfileView(user: user)) {
+                    KFImage(URL(string: vm.notification.profileImageUrl))
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 40, height:  40)
+                        .clipShape(Circle())
+               }
+            }
             
             Text(vm.notification.userName)
                 .font(.headline) +
@@ -34,10 +38,15 @@ struct NotificationsCell: View {
             Spacer()
             
             if vm.notification.type != .follow {
-                Image(systemName: "person")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 40, height:  40)
+                if let post = vm.notification.post {
+                    NavigationLink(destination: FeedCellView(vm: FeedCellViewModel(post: post))) {
+                        KFImage(URL(string: post.imageUrl))
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 40, height:  40)
+                            .clipped()
+                    }
+                }
                 
             } else {
                 Button {
